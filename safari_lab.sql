@@ -1,3 +1,9 @@
+DROP TABLE assignments;
+DROP TABLE staffs;
+DROP TABLE animals;
+DROP TABLE enclosures;
+
+
 
 CREATE TABLE enclosures(
     id SERIAL PRIMARY KEY,
@@ -26,29 +32,63 @@ CREATE TABLE assignments(
     day VARCHAR(255)
 );
 
-INSERT INTO enclosures (name,closedForMaintence) VALUES ("lion enclosure", false);
-INSERT INTO enclosures (name,closedForMaintence) VALUES ("giraffe enclosure", true);
-INSERT INTO enclosures (name,closedForMaintence) VALUES ("penguin enclosure", false);
-INSERT INTO enclosures (name,closedForMaintence) VALUES ("hippo enclosure", true);
+INSERT INTO enclosures (name,closedForMaintence) VALUES ('lion enclosure', false);
+INSERT INTO enclosures (name,closedForMaintence) VALUES ('giraffe enclosure', true);
+INSERT INTO enclosures (name,closedForMaintence) VALUES ('penguin enclosure', false);
+INSERT INTO enclosures (name,closedForMaintence) VALUES ('hippo enclosure', true);
 
-INSERT INTO animals (name,type,age,enclosure_id) VALUES ("lion", "big cat", 15,1);
-INSERT INTO animals (name,type,age,enclosure_id) VALUES ("giraffe", "hoofed mammal", 1,2);
-INSERT INTO animals (name,type,age,enclosure_id) VALUES ("penguin", "bird", 10,3);
-INSERT INTO animals (name,type,age,enclosure_id) VALUES ("hippo", "artiodactyl mammal", 5,4);
+INSERT INTO animals (name,type,age,enclosure_id) VALUES ('lion', 'big cat', 20,1);
+INSERT INTO animals (name,type,age,enclosure_id) VALUES ('giraffe', 'hoofed mammal', 1,2);
+INSERT INTO animals (name,type,age,enclosure_id) VALUES ('penguin', 'bird', 10,3);
+INSERT INTO animals (name,type,age,enclosure_id) VALUES ('zebra', 'artiodactyl mammal', 20,4);
+INSERT INTO animals (name,type,age,enclosure_id) VALUES ('hippo2', 'artiodactyl mammal', 15,4);
 
-INSERT INTO staff (name,employeeNumber) VALUES ("Colin", 1234);
-INSERT INTO staff (name,employeeNumber) VALUES ("Anna", 1235);
-INSERT INTO staff (name,employeeNumber) VALUES ("Zsolt", 1236);
-INSERT INTO staff (name,employeeNumber) VALUES ("Iain", 1237);
-
-
-INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (1, 1, "Monday");
-INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (1, 2, "Wednesday");
-INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (2, 3, "Monday");
-INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (2, 4, "Thursday");
-INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (3, 1, "Friday");
-INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (4, 1, "Tuesday");
-INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (1, 2, "Sunday");
+INSERT INTO staffs (name,employeeNumber) VALUES ('Colin', 1234);
+INSERT INTO staffs (name,employeeNumber) VALUES ('Anna', 1235);
+INSERT INTO staffs (name,employeeNumber) VALUES ('Zsolt', 1236);
+INSERT INTO staffs (name,employeeNumber) VALUES ('Iain', 1237);
 
 
+INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (1, 1, 'Monday');
+INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (1, 2, 'Wednesday');
+INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (2, 3, 'Monday');
+INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (2, 4, 'Thursday');
+INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (3, 1, 'Friday');
+INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (4, 1, 'Tuesday');
+INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (1, 3, 'Sunday');
 
+-- The names of the animals in a given enclosure:
+-- SELECT animals.name 
+-- FROM enclosures 
+-- INNER JOIN animals
+-- ON enclosures.id = animals.enclosure_id
+-- WHERE enclosures.name = 'lion enclosure';
+
+-- The names of the staff working in a given enclosure
+-- SELECT staffs.name 
+-- FROM enclosures 
+-- INNER JOIN assignments
+-- ON enclosures.id = assignments.enclosure_id
+-- INNER JOIN staffs 
+-- ON assignments.employee_id = staffs.id
+-- WHERE enclosures.name = 'lion enclosure';
+
+
+-- The names of staff  orking in enclosures which are closed for maintenance
+-- SELECT staffs.name 
+-- FROM enclosures 
+-- INNER JOIN assignments
+-- ON enclosures.id = assignments.enclosure_id
+-- INNER JOIN staffs 
+-- ON assignments.employee_id = staffs.id
+-- WHERE enclosures.closedformaintence = true;
+
+
+-- The name of the enclosure where the oldest animal lives. If there are two animals who are the same age choose the first one alphabetically.
+-- SELECT enclosures.name 
+-- FROM enclosures 
+-- INNER JOIN animals
+-- ON enclosures.id = animals.enclosure_id 
+-- ORDER BY animals.age DESC LIMIT 1
+
+-- The number of different animal types a given keeper has been assigned to work with.
