@@ -91,4 +91,14 @@ INSERT INTO assignments (employee_id,enclosure_id,day) VALUES (1, 3, 'Sunday');
 -- ON enclosures.id = animals.enclosure_id 
 -- ORDER BY animals.age DESC LIMIT 1
 
--- The number of different animal types a given keeper has been assigned to work with.
+-- The number of different animal types a given keeper has been assigned to work with (not finished)
+--SELECT COUNT (DISTINCT animals.type) 
+-- FROM staffs
+-- INNER JOIN assignments
+-- ON employee.id = assignmentenclosure_id 
+-- FROM staffs
+-- INNER JOIN assignments
+-- FROM staffs
+-- INNER JOIN assignments
+-- ON enclosures.id = animals.enclosure_id ON enclosures.id = animals.enclosure_id 
+-- WHERE staffs.name =  'Colin'
